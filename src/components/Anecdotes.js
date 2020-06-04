@@ -8,7 +8,13 @@ import {
 
 const Anecdotes = (props) => {
   const dispatch = useDispatch()
-  const anecdotes = useSelector((state) => state.anecdotes)
+  const anecdotes = useSelector(({ filter, anecdotes }) => {
+    if (!filter) {
+      return anecdotes
+    }
+
+    return anecdotes.filter((a) => a.content.toLowerCase().includes(filter))
+  })
 
   const vote = (id) => {
     dispatch(voteAnecdote(id))
