@@ -1,6 +1,6 @@
 const reducer = (state = '', action) => {
   switch (action.type) {
-    case 'SEND_NOTIFICATION':
+    case 'SET_NOTIFICATION':
       return action.data.message
     case 'CLEAR':
       return ''
@@ -9,10 +9,12 @@ const reducer = (state = '', action) => {
   }
 }
 
-export const sendNotification = (message) => {
-  return {
-    type: 'SEND_NOTIFICATION',
-    data: { message },
+export const setNotification = (message, duration) => {
+  return async (dispatch) => {
+    dispatch({ type: 'SET_NOTIFICATION', date: { message } })
+    setTimeout(() => {
+      dispatch(clearNotification())
+    }, duration * 1000)
   }
 }
 
